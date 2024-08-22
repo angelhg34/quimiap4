@@ -1,0 +1,68 @@
+{
+  "Users": [
+    {
+      "id": "1",
+      "nombres": "dairon smith",
+      "apellidos": "chapid moreno",
+      "telefono": "3224537890",
+      "correo_electronico": "morenodairon78@gmail.com",
+      "tipo_doc": "CC",
+      "num_doc": "10196055503",
+      "contrasena": "morenodairon78",
+      "genero": "Mujer",
+      "rol": "Cliente"
+    },
+    {
+      "id": "",
+      "nombres": "laura",
+      "apellidos": "albararcin",
+      "telefono": "32452727",
+      "correo_electronico": "laura@gmail.om",
+      "tipo_doc": "Cedula de Ciudadania",
+      "num_doc": "10985456",
+      "contrasena": "jahajmaavnhaah",
+      "genero": "Femenino",
+      "rol": ""
+    },
+    {
+      "id": "429b",
+      "nombres": "Jerson",
+      "apellidos": "Muñoz",
+      "telefono": "312654653325",
+      "correo_electronico": "J.erson@gmail.com",
+      "tipo_doc": "Pasaporte",
+      "num_doc": "1234567098",
+      "contrasena": "jikhfjbfh43y747",
+      "genero": "Femenino",
+      "rol": "Cliente"
+    }
+  ],
+  "Users_Admin": [
+    {
+      "Ref": "1",
+      "tipo_doc": "Cedula de Ciudadania",
+      "num_doc": "1081399564",
+      "nombres": "dairon smith",
+      "apellidos": "chapid moreno",
+      "correo_electronico": "morenodairon78@gmail.com",
+      "genero": "masculino",
+      "celular": "3202937619",
+      "contraseña": "dairon123",
+      "rol": "",
+      "id": "6ac3"
+    },
+    {
+      "id": "e8d9",
+      "Ref": "",
+      "tipo_doc": "Cedula de Ciudadania",
+      "num_doc": "1014198965",
+      "nombres": "lau",
+      "apellidos": "alba",
+      "correo_electronico": "laura@gmail.om",
+      "genero": "Femenino",
+      "celular": "62637535",
+      "contrasena": "zlxjcj",
+      "rol": "jefe de producción"
+    }
+  ]
+}
