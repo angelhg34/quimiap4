@@ -13,7 +13,7 @@
       "rol": "Cliente"
     },
     {
-      "id": "",
+      "id": "2",
       "nombres": "laura",
       "apellidos": "albararcin",
       "telefono": "32452727",
@@ -35,34 +35,43 @@
       "contrasena": "jikhfjbfh43y747",
       "genero": "Femenino",
       "rol": "Cliente"
-    }
-  ],
-  "Users_Admin": [
-    {
-      "Ref": "1",
-      "tipo_doc": "Cedula de Ciudadania",
-      "num_doc": "1081399564",
-      "nombres": "dairon smith",
-      "apellidos": "chapid moreno",
-      "correo_electronico": "morenodairon78@gmail.com",
-      "genero": "masculino",
-      "celular": "3202937619",
-      "contraseña": "dairon123",
-      "rol": "",
-      "id": "6ac3"
     },
     {
-      "id": "e8d9",
-      "Ref": "",
+      "id": "fccb",
+      "nombres": "ericj",
+      "apellidos": "puentes",
+      "telefono": "346262652",
+      "correo_electronico": "e@gm.com",
       "tipo_doc": "Cedula de Ciudadania",
-      "num_doc": "1014198965",
-      "nombres": "lau",
-      "apellidos": "alba",
-      "correo_electronico": "laura@gmail.om",
+      "num_doc": "2173276237",
+      "contrasena": "11614614nfjnfe",
+      "genero": "Masculino",
+      "rol": "Domiciliario",
+      "celular": "324354544454"
+    },
+    {
+      "id": "394b",
+      "nombres": "darwin",
+      "apellidos": "Lesmes",
+      "telefono": "3232645462652",
+      "correo_electronico": "d@gmail.com",
+      "tipo_doc": "Cedula de extranjeria",
+      "num_doc": "12345675274",
+      "contrasena": "wino13345",
+      "genero": "Masculino",
+      "rol": "Gerente"
+    },
+    {
+      "id": "7b93",
+      "nombres": "valeria",
+      "apellidos": "perez",
+      "telefono": "326266262",
+      "correo_electronico": "v@gmail.com",
+      "tipo_doc": "Cedula de extranjeria",
+      "num_doc": "216166",
+      "contrasena": "jdfbdjbjfd121",
       "genero": "Femenino",
-      "celular": "62637535",
-      "contrasena": "zlxjcj",
-      "rol": "jefe de producción"
+      "rol": "Domiciliario"
     }
   ]
 }
