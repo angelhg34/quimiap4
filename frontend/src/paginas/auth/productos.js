@@ -1,5 +1,5 @@
 import React from 'react';
-import Header2 from '../componentes/header2';
+import Header2 from '../../componentes/header2'
 
 const Productos = () =>{
     return(

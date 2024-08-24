@@ -5,7 +5,7 @@ import Register from "./paginas/auth/registro_clientes";
 import Nosotros from "./paginas/auth/nosotros";
 import Contacto from "./paginas/auth/contactanos";
 import UsuariosAdmin from "./paginas/auth/usuarios_admin";
-import Productos from "./paginas/productos";
+import Productos from "./paginas/auth/productos";
 import VentasAdmin from "./paginas/auth/ventas_admin";
 import DomicilioAdmin from "./paginas/auth/domicilios_admin";
 function App() {
