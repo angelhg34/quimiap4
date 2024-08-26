@@ -59,6 +59,65 @@
       "contrasena": "valeria12345",
       "genero": "Femenino",
       "rol": "Jefe de produccion"
+    },
+    {
+      "id": "8ea5",
+      "nombres": "Nancy",
+      "apellidos": "Neira",
+      "telefono": "3208556747",
+      "correo_electronico": "nancy@gmail.com",
+      "tipo_doc": "Tarjeta de identidad",
+      "num_doc": "10319758478",
+      "contrasena": "nancykh473563",
+      "genero": "Femenino",
+      "rol": "Cliente"
+    },
+    {
+      "id": "9526",
+      "nombres": "omar",
+      "apellidos": "perez",
+      "telefono": "3115673262",
+      "correo_electronico": "o@gmail.com",
+      "tipo_doc": "Cedula de extranjeria",
+      "num_doc": "123409923",
+      "contrasena": "omar62762",
+      "genero": "Masculino",
+      "rol": "Domiciliario"
+    }
+  ],
+  "Products": [
+    {
+      "id": "1",
+      "nombre": "Detergente 2L",
+      "descripcion": "Detergente en polvo para ropa",
+      "categoria": "Limpieza",
+      "composicion": "Sulfonato de alquilbenceno",
+      "contenido_neto": "1L",
+      "usos": "Ropa",
+      "advertencias": "Mantener fuera del alcance de los niños",
+      "precio_unitario": "10000"
+    },
+    {
+      "id": "2",
+      "nombre": "Cera polimerica 750ml",
+      "descripcion": "Corrige daños al sellador",
+      "categoria": "Pisos",
+      "composicion": "mezcla de polimeros  y resinas acrilicas",
+      "contenido_neto": "750ml",
+      "usos": "Es una cera para el mantenimiento de los pisos",
+      "advertencias": "Evitar contacto con piel y ojos",
+      "precio_unitario": "20000"
+    },
+    {
+      "id": "3",
+      "nombre": "Detergente liquido",
+      "descripcion": "es especito para lavar la ropa",
+      "categoria": "lava ropa",
+      "composicion": "muchos componentes",
+      "contenido_neto": "15ml",
+      "usos": "se usa para lavar la ropa",
+      "advertencias": "no estar con niños",
+      "precio_unitario": "22000"
     }
   ]
 }
