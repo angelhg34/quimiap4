@@ -88,6 +88,7 @@
   "Products": [
     {
       "id": "1",
+      "imagen": "",
       "nombre": "Detergente 2L",
       "descripcion": "Detergente en polvo para ropa",
       "categoria": "Limpieza",
@@ -95,7 +96,7 @@
       "contenido_neto": "1L",
       "usos": "Ropa",
       "advertencias": "Mantener fuera del alcance de los niños",
-      "precio_unitario": "10000"
+      "precio_unitario": "10500"
     },
     {
       "id": "2",
@@ -110,6 +111,7 @@
     },
     {
       "id": "3",
+      "imagen": "",
       "nombre": "Detergente liquido",
       "descripcion": "es especito para lavar la ropa",
       "categoria": "lava ropa",
@@ -118,6 +120,61 @@
       "usos": "se usa para lavar la ropa",
       "advertencias": "no estar con niños",
       "precio_unitario": "22000"
+    },
+    {
+      "id": "4",
+      "nombre": "Desengrasante",
+      "descripcion": "oejdjlkdwd",
+      "categoria": "odlnwdwm",
+      "composicion": "nmkenedken",
+      "contenido_neto": "nkwdndkwn",
+      "usos": "dnikncdcn",
+      "advertencias": "dsknknd",
+      "precio_unitario": "16000"
+    },
+    {
+      "id": "5",
+      "nombre": "Ambientador",
+      "descripcion": "ojkdjmwkl",
+      "categoria": "m",
+      "composicion": "km",
+      "contenido_neto": "k",
+      "usos": "knknkn",
+      "advertencias": "knkn",
+      "precio_unitario": "10500"
+    },
+    {
+      "id": "6",
+      "nombre": "lava loza",
+      "descripcion": "feffefe",
+      "categoria": "effefefe",
+      "composicion": "ffefrffe",
+      "contenido_neto": "ffefffeef",
+      "usos": "ffeefef",
+      "advertencias": "fefefefe",
+      "precio_unitario": "20000"
+    },
+    {
+      "id": "7",
+      "nombre": "hipoclorito",
+      "descripcion": "ksnksn",
+      "categoria": "knknk",
+      "composicion": "knknk",
+      "contenido_neto": "knknk",
+      "usos": "knkn",
+      "advertencias": "knkn",
+      "precio_unitario": "5500"
+    },
+    {
+      "id": "8",
+      "nombre": "Secuestrante de hierro",
+      "descripcion": "nkdndkn",
+      "categoria": "knkndkdn",
+      "composicion": "knknkn",
+      "contenido_neto": "knkn",
+      "usos": "kknknkn",
+      "advertencias": "knknknk",
+      "precio_unitario": "18000"
     }
   ]
 }
