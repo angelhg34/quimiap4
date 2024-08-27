@@ -9,6 +9,10 @@ import Productos from "./paginas/auth/productos";
 import VentasAdmin from "./paginas/auth/ventas_admin";
 import DomicilioAdmin from "./paginas/auth/domicilios_admin";
 import Carrito from "./paginas/auth/carrito";
+import JfProduccion from "./paginas/auth/jf_produccion";
+import VentasjfProduccion from "./paginas/auth/ventas_jfproduccion";
+import Domiciliario from "./paginas/auth/domiciliario";
+import VentasDomiciliario from "./paginas/auth/ventas_domiciliario";
 function App() {
   return (
     <Fragment>
@@ -24,6 +28,10 @@ function App() {
           <Route path='/ventas_admin.js' exact element={<VentasAdmin />}/>
           <Route path='/domicilios_admin.js' exact element={<DomicilioAdmin />}/>
           <Route path='/carrito.js' exact element={<Carrito />}/>
+          <Route path='/jf_produccion.js' exact element={<JfProduccion />}/>
+          <Route path='/ventas_jfproduccion.js' exact element={<VentasjfProduccion />}/>
+          <Route path='/domiciliario.js' exact element={<Domiciliario />}/>
+          <Route path='/ventas_domiciliario.js' exact element={<VentasDomiciliario />}/>
 
         </Routes>
       </Router>

@@ -58,7 +58,7 @@
       "num_doc": "216166",
       "contrasena": "valeria12345",
       "genero": "Femenino",
-      "rol": "Jefe de produccion"
+      "rol": "jefe de produccion"
     },
     {
       "id": "8ea5",
@@ -83,6 +83,30 @@
       "contrasena": "omar62762",
       "genero": "Masculino",
       "rol": "Domiciliario"
+    },
+    {
+      "id": "aeaa",
+      "nombres": "Andres",
+      "apellidos": "Lopez",
+      "telefono": "3139000900",
+      "correo_electronico": "andr@gmail.com",
+      "tipo_doc": "Pasaporte",
+      "num_doc": "1200003093",
+      "contrasena": "andres12233094093",
+      "genero": "Masculino",
+      "rol": "Cliente"
+    },
+    {
+      "id": "e254",
+      "nombres": "Carlos",
+      "apellidos": "Neira",
+      "telefono": "3187837327",
+      "correo_electronico": "carlos@gmail.com",
+      "tipo_doc": "Cedula de extranjeria",
+      "num_doc": "01909292039",
+      "contrasena": "carlos1234",
+      "genero": "Masculino",
+      "rol": "Gerente"
     }
   ],
   "Products": [
@@ -168,8 +192,8 @@
     {
       "id": "8",
       "nombre": "Secuestrante de hierro",
-      "descripcion": "nkdndkn",
-      "categoria": "knkndkdn",
+      "descripcion": "holaaaaa",
+      "categoria": "holaaaaaa",
       "composicion": "knknkn",
       "contenido_neto": "knkn",
       "usos": "kknknkn",

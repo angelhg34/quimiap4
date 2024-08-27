@@ -12,6 +12,11 @@
     max-height: 90px; /* Altura máxima del logo */
 }
 
+.header-logo-container {
+    position: relative; /* Cambia la posición del contenedor del logo */
+    left: -36px; /* Mueve el logo hacia la izquierda */
+}
+
 /* Estilo de la barra de búsqueda */
 .search-bar {
     max-width: 300px; /* Ancho máximo de la barra de búsqueda */

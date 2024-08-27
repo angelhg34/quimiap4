@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import '../styles/style_header2.css';
 
-const Header2 = () => {
+const Header4 = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -24,10 +24,8 @@ const Header2 = () => {
           />
         </div>
         <ul className="nav me-auto mb-2 mb-lg-0">
-          <li className="nav-item"><a href="usuarios_admin.js" className="nav-link px-2">Usuarios</a></li>
-          <li className="nav-item"><a href="productos.js" className="nav-link px-2">Productos</a></li>
-          <li className="nav-item"><a href="ventas_admin.js" className="nav-link px-2">Ventas</a></li>
-          <li className="nav-item"><a href="domicilios_admin.js" className="nav-link px-2">Domicilios</a></li>
+          <li className="nav-item"><a href="ventas_domiciliario.js" className="nav-link px-2">Ventas</a></li>
+          <li className="nav-item"><a href="domiciliario.js" className="nav-link px-2">Domicilios</a></li>
         </ul>
         <div>
           {/* Botón para cerrar sesión */}
@@ -44,4 +42,4 @@ const Header2 = () => {
   );
 }
 
-export default Header2;
+export default Header4;
