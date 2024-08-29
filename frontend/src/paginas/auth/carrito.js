@@ -99,6 +99,8 @@ const CarritoPage = () => {
               <button onClick={vaciarCarrito} className="btn btn-danger mt-2">Vaciar Carrito</button>
             </div>
             <button onClick={() => navigate('/')} className="btn btn-success mt-2">Seguir Comprando</button>
+            <button onClick={() => navigate('/venta_cliente.js')} className="btn btn-success mt-2">Pagar</button>
+
           </div>
         </div>
       </div>

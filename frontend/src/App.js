@@ -13,6 +13,8 @@ import JfProduccion from "./paginas/auth/jf_produccion";
 import VentasjfProduccion from "./paginas/auth/ventas_jfproduccion";
 import Domiciliario from "./paginas/auth/domiciliario";
 import VentasDomiciliario from "./paginas/auth/ventas_domiciliario";
+import VentasCliente from "./paginas/auth/venta_cliente";
+import MisVentas from "./paginas/auth/MisVentas";
 function App() {
   return (
     <Fragment>
@@ -32,6 +34,9 @@ function App() {
           <Route path='/ventas_jfproduccion.js' exact element={<VentasjfProduccion />}/>
           <Route path='/domiciliario.js' exact element={<Domiciliario />}/>
           <Route path='/ventas_domiciliario.js' exact element={<VentasDomiciliario />}/>
+          <Route path='/venta_cliente.js' exact element={<VentasCliente />}/>
+          <Route path='/MisVentas.js' exact element={<MisVentas />}/>
+
 
         </Routes>
       </Router>

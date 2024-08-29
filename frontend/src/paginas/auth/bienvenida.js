@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import Swal from 'sweetalert2'; // Importa SweetAlert2
 import '../../styles/style_bienvenida.css';
 import Header from "../../componentes/header1";
 import Footer from "../../componentes/footer";
@@ -7,8 +8,7 @@ import { Link } from 'react-router-dom';
 
 const Bienvenida = () => {
   const [productos, setProductos] = useState([]);
-  // El estado carrito está declarado pero no se usa actualmente
-  // const [carrito, setCarrito] = useState([]);
+  const [categoriaSeleccionada, setCategoriaSeleccionada] = useState('');
 
   // Función para obtener productos de la API
   const fetchProductos = async () => {
@@ -22,10 +22,17 @@ const Bienvenida = () => {
 
   useEffect(() => {
     fetchProductos();
-    // Puedes descomentar la siguiente línea si decides usar el estado carrito en el futuro
-    // const carritoGuardado = JSON.parse(localStorage.getItem('carrito')) || [];
-    // setCarrito(carritoGuardado);
   }, []);
+
+  // Función para filtrar productos según la categoría seleccionada
+  const productosFiltrados = categoriaSeleccionada
+    ? productos.filter(producto => producto.categoria === categoriaSeleccionada)
+    : productos;
+
+  // Función para manejar el clic en una categoría
+  const handleCategoriaClick = (categoria) => {
+    setCategoriaSeleccionada(categoria);
+  };
 
   // Función para agregar producto al carrito
   const agregarAlCarrito = (producto) => {
@@ -42,10 +49,15 @@ const Bienvenida = () => {
     }
 
     localStorage.setItem('carrito', JSON.stringify(nuevoCarrito));
-    // Actualiza el estado del carrito si lo estás usando en el futuro
-    // setCarrito(nuevoCarrito);
 
-    alert(`${producto.nombre} ha sido agregado al carrito!`);
+    // Usa SweetAlert2 para mostrar la alerta
+    Swal.fire({
+      title: '¡Éxito!',
+      text: `${producto.nombre} ha sido agregado al carrito!`,
+      icon: 'success',
+      confirmButtonText: 'Aceptar'
+    });
+
     console.log('Carrito después de agregar:', nuevoCarrito);
   };
 
@@ -53,40 +65,42 @@ const Bienvenida = () => {
     <div>
       <Header />
       {/* Hero Section */}
-      <div id="mainCarousel" className="carousel slide" data-bs-ride="carousel">
-        <div className="carousel-inner">
-          <div className="carousel-item active">
-            <img src="/img/carrusel-images/supersale.jpg" className="d-block w-100" alt="Oferta 1" />
-            <div className="carousel-caption d-none d-md-block">
-              <h5>Hasta 30% de Descuento en Productos de Cuidado de ropa</h5>
-              <p>Exclusivo para compras en app, web y domicilios.</p>
-              <Link to="#" className="btn btn-danger">Compra Aquí</Link>
+      <div className="hero">
+        <div id="mainCarousel" className="carousel slide" data-bs-ride="carousel">
+          <div className="carousel-inner">
+            <div className="carousel-item active">
+              <img src="/img/carrusel-images/supersale.jpg" className="d-block w-100" alt="Oferta 1" />
+              <div className="carousel-caption d-none d-md-block">
+                <h5>Hasta 30% de Descuento en Productos de Cuidado de ropa</h5>
+                <p>Exclusivo para compras en app, web y domicilios.</p>
+                <Link to="#" className="btn btn-danger">Compra Aquí</Link>
+              </div>
+            </div>
+            <div className="carousel-item">
+              <img src="/img/carrusel-images/pngtree-sale-promotion-50-off-image_914144.png" className="d-block w-100" alt="Oferta 2" />
+              <div className="carousel-caption d-none d-md-block">
+                <h5>Hasta 50% de Descuento en Hogar y Limpieza</h5>
+                <p>Oferta válida hasta fin de mes.</p>
+                <Link to="#" className="btn btn-danger">Compra Aquí</Link>
+              </div>
             </div>
           </div>
-          <div className="carousel-item">
-            <img src="/img/carrusel-images/pngtree-sale-promotion-50-off-image_914144.png" className="d-block w-100" alt="Oferta 2" />
-            <div className="carousel-caption d-none d-md-block">
-              <h5>Hasta 50% de Descuento en Hogar y Limpieza</h5>
-              <p>Oferta válida hasta fin de mes.</p>
-              <Link to="#" className="btn btn-danger">Compra Aquí</Link>
-            </div>
-          </div>
+          <button className="carousel-control-prev" type="button" data-bs-target="#mainCarousel" data-bs-slide="prev">
+            <span className="carousel-control-prev-icon" aria-hidden="true" />
+            <span className="visually-hidden">Previous</span>
+          </button>
+          <button className="carousel-control-next" type="button" data-bs-target="#mainCarousel" data-bs-slide="next">
+            <span className="carousel-control-next-icon" aria-hidden="true" />
+            <span className="visually-hidden">Next</span>
+          </button>
         </div>
-        <button className="carousel-control-prev" type="button" data-bs-target="#mainCarousel" data-bs-slide="prev">
-          <span className="carousel-control-prev-icon" aria-hidden="true" />
-          <span className="visually-hidden">Previous</span>
-        </button>
-        <button className="carousel-control-next" type="button" data-bs-target="#mainCarousel" data-bs-slide="next">
-          <span className="carousel-control-next-icon" aria-hidden="true" />
-          <span className="visually-hidden">Next</span>
-        </button>
       </div>
       {/* Categorías */}
       <section className="categories-section">
         <div className="container">
           <div className="row text-center">
             <div className="col-md-3">
-              <Link to="#" className="category-link">
+              <Link onClick={() => handleCategoriaClick('Cuidado de la Ropa')} className="category-link">
                 <div className="category-icon">
                   <i className="bi bi-person-standing-dress" />
                 </div>
@@ -96,7 +110,7 @@ const Bienvenida = () => {
               </Link>
             </div>
             <div className="col-md-3">
-              <Link to="#" className="category-link">
+              <Link onClick={() => handleCategoriaClick('Hogar y Limpieza')} className="category-link">
                 <div className="category-icon">
                   <i className="bi bi-house-door" />
                 </div>
@@ -106,7 +120,7 @@ const Bienvenida = () => {
               </Link>
             </div>
             <div className="col-md-3">
-              <Link to="#" className="category-link">
+              <Link onClick={() => handleCategoriaClick('Cuidado de Pisos')} className="category-link">
                 <div className="category-icon">
                   <i className="bi bi-square" />
                 </div>
@@ -116,7 +130,7 @@ const Bienvenida = () => {
               </Link>
             </div>
             <div className="col-md-3">
-              <Link to="#" className="category-link">
+              <Link onClick={() => handleCategoriaClick('Desinfectantes')} className="category-link">
                 <div className="category-icon">
                   <i className="bi bi-shield-check" />
                 </div>
@@ -133,10 +147,17 @@ const Bienvenida = () => {
         <div className="container">
           <h2 className="text-center mb-4">Productos Destacados</h2>
           <div className="row">
-            {productos.slice(0, 4).map((producto) => (
+            {productosFiltrados.slice(0, 4).map((producto) => (
               <div className="col-md-3" key={producto.id}>
                 <div className="card product-card">
                   <div className="card-body">
+                    <img 
+                      src={producto.imagen} 
+                      alt={producto.nombre} 
+                      style={{ width: '100%', height: '200px', objectFit: 'cover' }} 
+
+                      className="object-cover w-full h-full absolute inset-0" 
+                    />
                     <h5 className="card-title">{producto.nombre}</h5>
                     <p className="card-text"><strong>${producto.precio_unitario}</strong></p>
                     <button onClick={() => agregarAlCarrito(producto)} className="btn btn-outline-primary">
@@ -153,10 +174,16 @@ const Bienvenida = () => {
       <section className="products-section">
         <div className="container">
           <div className="row">
-            {productos.slice(4, 8).map((producto) => (
+            {productosFiltrados.slice(4, 8).map((producto) => (
               <div className="col-md-3" key={producto.id}>
                 <div className="card product-card">
                   <div className="card-body">
+                    <img 
+                      src={producto.imagen} 
+                      alt={producto.nombre}
+                      style={{ width: '100%', height: '200px', objectFit: 'cover' }} 
+                      className="object-cover w-full h-full absolute inset-0" 
+                    />
                     <h5 className="card-title">{producto.nombre}</h5>
                     <p className="card-text"><strong>${producto.precio_unitario}</strong></p>
                     <button onClick={() => agregarAlCarrito(producto)} className="btn btn-outline-primary">
@@ -169,7 +196,32 @@ const Bienvenida = () => {
           </div>
         </div>
       </section>
-      {/* Footer */}
+      {/* Tercera sección de productos */}
+      <section className="products-section">
+        <div className="container">
+          <div className="row">
+            {productosFiltrados.slice(8, 12).map((producto) => (
+              <div className="col-md-3" key={producto.id}>
+                <div className="card product-card">
+                  <div className="card-body">
+                    <img 
+                      src={producto.imagen} 
+                      alt={producto.nombre} 
+                      style={{ width: '100%', height: '200px', objectFit: 'cover' }} 
+                      className="object-cover w-full h-full absolute inset-0" 
+                    />
+                    <h5 className="card-title">{producto.nombre}</h5>
+                    <p className="card-text"><strong>${producto.precio_unitario}</strong></p>
+                    <button onClick={() => agregarAlCarrito(producto)} className="btn btn-outline-primary">
+                      <i className="bi bi-cart" /> Agregar
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
       <Footer />
     </div>
   );

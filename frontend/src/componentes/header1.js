@@ -75,6 +75,7 @@ const Header = () => {
     sessionStorage.clear();
     setIsAuthenticated(false);
     setUserName("");
+    localStorage.removeItem('carrito'); // Elimina el carrito del almacenamiento local
     navigate("/");
   };
 
@@ -92,7 +93,7 @@ const Header = () => {
               />
             </a>
           </div>
-          {/* Botón de categorías */}
+          {/* Botón de opciones */}
           <div className="d-flex align-items-center">
             <button
               className="btn btn-outline-secondary me-3"
@@ -103,7 +104,7 @@ const Header = () => {
             >
               <i className="bi bi-list" />
             </button>
-            <span>Categorías</span>
+            <span>Más Opciones</span>
           </div>
           {/* Barra de búsqueda */}
           <div className="mx-3 flex-grow-1">
@@ -210,67 +211,23 @@ const Header = () => {
           </Link>
         </div>
       </header>
- {/* Sidebar interactivo */}
- <div className="offcanvas offcanvas-start offcanvas-categorias" tabIndex={-1} id="offcanvasCategorias" aria-labelledby="offcanvasCategoriasLabel">
-    <div className="offcanvas-header">
-      <h5 className="offcanvas-title" id="offcanvasCategoriasLabel">Categorías</h5>
-      <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" />
+      {/* Sidebar interactivo */}
+      <div className="offcanvas offcanvas-start offcanvas-categorias" tabIndex={-1} id="offcanvasCategorias" aria-labelledby="offcanvasCategoriasLabel">
+        <div className="offcanvas-header">
+          <h5 className="offcanvas-title" id="offcanvasCategoriasLabel">Mis Ventas</h5>
+          <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" />
+        </div>
+        <div className="offcanvas-body">
+          <ul className="list-group">
+            <li className="list-group-item">
+              <Link to="/MisVentas.js" className="text-decoration-none text-dark">
+                Ver mis ventas
+              </Link>
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
-    <div className="offcanvas-body">
-      <ul className="list-group">
-        <li className="list-group-item">
-          <Link to="#" className="d-flex justify-content-between align-items-center text-decoration-none text-dark" data-bs-toggle="collapse" data-bs-target="#ofertasCollapse" aria-expanded="false" aria-controls="ofertasCollapse">
-            Ofertas
-            <i className="bi bi-chevron-down" />
-          </Link>
-          <div className="collapse" id="ofertasCollapse">
-            <ul className="list-group">
-              <li className="list-group-item"><Link to="#" className="text-decoration-none text-dark">Oferta 1</Link></li>
-              <li className="list-group-item"><Link to="#" className="text-decoration-none text-dark">Oferta 2</Link></li>
-            </ul>
-          </div>
-        </li>
-        <li className="list-group-item">
-          <Link to="#" className="d-flex justify-content-between align-items-center text-decoration-none text-dark" data-bs-toggle="collapse" data-bs-target="#ropaCollapse" aria-expanded="false" aria-controls="ropaCollapse">
-            Cuidado de Ropa
-            <i className="bi bi-chevron-down" />
-          </Link>
-          <div className="collapse" id="ropaCollapse">
-            <ul className="list-group">
-              <li className="list-group-item"><Link to="#" className="text-decoration-none text-dark">Detergentes</Link></li>
-              <li className="list-group-item"><Link to="#" className="text-decoration-none text-dark">Suavizantes</Link></li>
-              <li className="list-group-item"><Link to="#" className="text-decoration-none text-dark">Blanqueadores</Link></li>
-            </ul>
-          </div>
-        </li>
-        <li className="list-group-item">
-          <Link to="#" className="d-flex justify-content-between align-items-center text-decoration-none text-dark" data-bs-toggle="collapse" data-bs-target="#hogarCollapse" aria-expanded="false" aria-controls="hogarCollapse">
-            Hogar y Limpieza
-            <i className="bi bi-chevron-down" />
-          </Link>
-          <div className="collapse" id="hogarCollapse">
-            <ul className="list-group">
-              <li className="list-group-item"><Link to="#" className="text-decoration-none text-dark">Limpiadores Multiusos</Link></li>
-              <li className="list-group-item"><Link to="#" className="text-decoration-none text-dark">Desinfectantes</Link></li>
-              <li className="list-group-item"><Link to="#" className="text-decoration-none text-dark">Ambientadores</Link></li>
-            </ul>
-          </div>
-        </li>
-        <li className="list-group-item">
-          <Link to="#" className="d-flex justify-content-between align-items-center text-decoration-none text-dark" data-bs-toggle="collapse" data-bs-target="#desinfectantesCollapse" aria-expanded="false" aria-controls="desinfectantesCollapse">
-            Desinfectantes
-            <i className="bi bi-chevron-down" />
-          </Link>
-          <div className="collapse" id="desinfectantesCollapse">
-            <ul className="list-group">
-              <li className="list-group-item"><Link to="#" className="text-decoration-none text-dark">Desinfectante 1</Link></li>
-              <li className="list-group-item"><Link to="#" className="text-decoration-none text-dark">Desinfectante 2</Link></li>
-            </ul>
-          </div>
-        </li>
-      </ul>
-    </div>
-  </div>    </div>
   );
 };
 
