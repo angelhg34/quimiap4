@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Header2 from '../../componentes/header2';
 import axios from 'axios';
+import Swal from 'sweetalert2'; // Importa SweetAlert2
 
 const DomicilioAdmin = () => {
   const [domicilios, setDomicilios] = useState([]);
@@ -31,10 +32,23 @@ const DomicilioAdmin = () => {
         domicilio.id === domicilioId ? { ...domicilio, estado: 'Entregado' } : domicilio
       ));
 
-      // Mostrar alerta
-      alert('Domicilio confirmado como entregado');
+      // Mostrar alerta con SweetAlert2
+      Swal.fire({
+        title: 'Confirmación',
+        text: 'Domicilio confirmado como entregado',
+        icon: 'success',
+        confirmButtonText: 'Aceptar'
+      });
     } catch (error) {
       console.error('Error updating domicilio:', error);
+
+      // Mostrar alerta de error con SweetAlert2
+      Swal.fire({
+        title: 'Error',
+        text: 'No se pudo actualizar el estado del domicilio',
+        icon: 'error',
+        confirmButtonText: 'Aceptar'
+      });
     }
   };
 

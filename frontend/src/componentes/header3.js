@@ -24,7 +24,7 @@ const Header3 = () => {
           />
         </div>
         <ul className="nav me-auto mb-2 mb-lg-0">
-          <li className="nav-item"><a href="jf_produccion.js" className="nav-link px-2">Productos</a></li>
+          <li className="nav-item"><a href=".js" className="nav-link px-2">Productos</a></li>
           <li className="nav-item"><a href="ventas_jfproduccion.js" className="nav-link px-2">Ventas</a></li>
         </ul>
         <div>

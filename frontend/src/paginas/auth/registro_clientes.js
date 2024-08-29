@@ -3,6 +3,7 @@ import Header from "../../componentes/header1";
 import '../../styles/register_style.css'
 import Footer from "../../componentes/footer";
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 const Register = () =>{
   const [formData, setFormData] = useState({
@@ -27,13 +28,30 @@ const enviar = async (event) => {
   event.preventDefault();
   try {
     const response = await axios.post("http://localhost:4000/Users", formData);
-    alert("Registo exitoso", response.data);
-    window.location.href = '/'; 
-    
+
+    // Mostrar alerta con SweetAlert2
+    await Swal.fire({
+      title: 'Registro Exitoso',
+      text: '¡Tu registro se realizó con éxito!',
+      icon: 'success',
+      confirmButtonText: 'Aceptar'
+    });
+
+    // Redirigir a la página de bienvenida
+    window.location.href = '/'; // Asegúrate de que la ruta sea correcta para tu aplicación
+
   } catch (error) {
     console.error("Error al enviar los datos:", error);
+
+    // Mostrar alerta de error
+    Swal.fire({
+      title: 'Error',
+      text: 'Hubo un problema al registrar tu cuenta. Inténtalo de nuevo.',
+      icon: 'error',
+      confirmButtonText: 'Aceptar'
+    });
   }
-}
+};
 
 const handleChange = (event) => {
   const { name, value } = event.target;
@@ -41,6 +59,12 @@ const handleChange = (event) => {
     ...prevFormData,
     [name]: value
   }));
+}
+const handleKeyPress = (event) => {
+  // Permite solo letras y espacios
+  if (!/^[a-zA-Z\s]*$/.test(event.key)) {
+    event.preventDefault();
+  }
 }
 
     return(
@@ -70,7 +94,7 @@ const handleChange = (event) => {
             <div className="col-md-6">
               <label htmlFor="numeroIdentificacion" className="form-label">Nº de identificación</label>
               <input
-                type="text"
+                type="number"
                 className="form-control"
                 id="numeroIdentificacion"
                 name="num_doc"
@@ -92,6 +116,7 @@ const handleChange = (event) => {
                 placeholder="Ingresa tu nombre"
                 value={formData.nombres}
                 onChange={handleChange}
+                onKeyPress={handleKeyPress}
                 required
               />
             </div>
@@ -105,6 +130,7 @@ const handleChange = (event) => {
                 placeholder="Ingresa tu apellido"
                 value={formData.apellidos}
                 onChange={handleChange}
+                onKeyPress={handleKeyPress}
                 required
               />
             </div>
@@ -145,7 +171,7 @@ const handleChange = (event) => {
               <div className="input-group">
                 <span className="input-group-text">+57</span>
                 <input
-                  type="tel"
+                  type="number"
                   className="form-control"
                   id="celular"
                   name="telefono"

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import '../styles/header_styles.css';
+import Swal from 'sweetalert2';
 
 const Header = () => {
   const [email, setEmail] = useState("");
@@ -47,6 +48,14 @@ const Header = () => {
         setIsAuthenticated(true);
         setUserName(user.nombres);
 
+        // Mostrar alerta de éxito
+        await Swal.fire({
+          title: 'Inicio de sesión exitoso',
+          text: `Bienvenido, ${user.nombres}!`,
+          icon: 'success',
+          confirmButtonText: 'Aceptar'
+        });
+
         switch (user.rol.toLowerCase()) {
           case "cliente":
             navigate("/");
@@ -64,12 +73,24 @@ const Header = () => {
             navigate("/");
         }
       } else {
-        alert("Correo o contraseña incorrectos");
+        Swal.fire({
+          title: 'Error',
+          text: 'Correo o contraseña incorrectos',
+          icon: 'error',
+          confirmButtonText: 'Aceptar'
+        });
       }
     } catch (error) {
       console.error("Error during login:", error);
+      Swal.fire({
+        title: 'Error',
+        text: 'Ocurrió un error durante el inicio de sesión. Por favor, intente nuevamente.',
+        icon: 'error',
+        confirmButtonText: 'Aceptar'
+      });
     }
   };
+
 
   const handleLogout = () => {
     sessionStorage.clear();
@@ -79,6 +100,22 @@ const Header = () => {
     navigate("/");
   };
 
+  const handleMisVentasClick = () => {
+    if (!isAuthenticated) {
+      Swal.fire({
+        title: 'Acceso Denegado',
+        text: 'Debes iniciar sesión para acceder a esta sección.',
+        icon: 'warning',
+        confirmButtonText: 'Ir a la bienvenida',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate("/"); // Redirige a la página de bienvenida
+        }
+      });
+    } else {
+      navigate("/MisVentas.js"); // Redirige a la página de Mis Ventas si está autenticado
+    }
+  };
   return (
     <div>
       <header className="bg-light border-bottom sticky-header">
@@ -220,9 +257,9 @@ const Header = () => {
         <div className="offcanvas-body">
           <ul className="list-group">
             <li className="list-group-item">
-              <Link to="/MisVentas.js" className="text-decoration-none text-dark">
+            <button onClick={handleMisVentasClick} className="text-decoration-none text-dark btn btn-link">
                 Ver mis ventas
-              </Link>
+              </button>
             </li>
           </ul>
         </div>

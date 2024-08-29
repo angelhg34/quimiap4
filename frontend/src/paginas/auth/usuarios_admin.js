@@ -16,7 +16,13 @@ const UsuariosAdmin = () => {
     genero: '',
     rol: ''
   });
-
+  const handleKeyPress = (event) => {
+    // Permite solo letras y espacios
+    if (!/^[a-zA-Z\s]*$/.test(event.key)) {
+      event.preventDefault();
+    }
+  }
+  
   const [users, setUsers] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
@@ -199,12 +205,14 @@ const UsuariosAdmin = () => {
       <Header2 />
       <div className="container">
         <section className="container mt-5">
-          <h2>Registro de usuarios administrativos</h2>
+          <h2>Registro de usuarios </h2>
           <br />
+          <div className="d-flex justify-content-end">
           {/* Botón para abrir el modal */}
-          <button type="button" className="btn btn-success" data-bs-toggle="modal" data-bs-target="#registroUserModal">
+          <button type="button" className="btn btn-success justify-content-end" data-bs-toggle="modal" data-bs-target="#registroUserModal">
             Registrar Usuario
           </button>
+          </div>
           {/* Modal */}
           <div className="modal fade" id="registroUserModal" tabIndex={-1} aria-labelledby="registroUserModalLabel" aria-hidden="true">
             <div className="modal-dialog">
@@ -227,15 +235,15 @@ const UsuariosAdmin = () => {
                     </div>
                     <div className="mb-3">
                       <label htmlFor="num_doc" className="form-label">Nº Identificación</label>
-                      <input type="text" className="form-control" id="num_doc" placeholder="Ingrese Nº Identificación" value={formData.num_doc} onChange={handleInputChange} />
+                      <input type="number" className="form-control" id="num_doc" placeholder="Ingrese Nº Identificación" value={formData.num_doc} onChange={handleInputChange} />
                     </div>
                     <div className="mb-3">
                       <label htmlFor="nombres" className="form-label">Nombres</label>
-                      <input type="text" className="form-control" id="nombres" placeholder="Ingrese Nombres" value={formData.nombres} onChange={handleInputChange} />
+                      <input type="text" className="form-control" id="nombres" placeholder="Ingrese Nombres" value={formData.nombres} onChange={handleInputChange} onKeyPress={handleKeyPress} />
                     </div>
                     <div className="mb-3">
                       <label htmlFor="apellidos" className="form-label">Apellidos</label>
-                      <input type="text" className="form-control" id="apellidos" placeholder="Ingrese Apellidos" value={formData.apellidos} onChange={handleInputChange} />
+                      <input type="text" className="form-control" id="apellidos" placeholder="Ingrese Apellidos" value={formData.apellidos} onChange={handleInputChange} onKeyPress={handleKeyPress}/>
                     </div>
                     <div className="mb-3">
                       <label htmlFor="correo_electronico" className="form-label">Correo Electrónico</label>
@@ -252,11 +260,11 @@ const UsuariosAdmin = () => {
                     </div>
                     <div className="mb-3">
                       <label htmlFor="telefono" className="form-label">Número Celular</label>
-                      <input type="text" className="form-control" id="telefono" placeholder="Ingrese Número Celular" value={formData.telefono} onChange={handleInputChange} />
+                      <input type="number" className="form-control" id="telefono" placeholder="Ingrese Número Celular" value={formData.telefono} onChange={handleInputChange} />
                     </div>
                     <div className="mb-3">
                       <label htmlFor="contrasena" className="form-label">Contraseña</label>
-                      <input type="text" className="form-control" id="contrasena" placeholder="Ingrese Contraseña" value={formData.contrasena} onChange={handleInputChange} />
+                      <input type="Password" className="form-control" id="contrasena" placeholder="Ingrese Contraseña" value={formData.contrasena} onChange={handleInputChange} />
                     </div>
                     <div className="mb-3">
                       <label htmlFor="rol" className="form-label">Rol</label>

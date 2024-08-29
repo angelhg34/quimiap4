@@ -1,9 +1,9 @@
 import React from 'react';
-import Header3 from '../../componentes/header3';
+import Header4 from '../../componentes/header4';
 const VentasDomiciliario = () =>{
     return(
         <div>
-            <Header3 />
+            <Header4 />
             <div className="container">
   <section className="container mt-5">
     <h2>Consulta de Ventas</h2>

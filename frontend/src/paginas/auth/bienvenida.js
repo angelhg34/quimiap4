@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 const Bienvenida = () => {
   const [productos, setProductos] = useState([]);
   const [categoriaSeleccionada, setCategoriaSeleccionada] = useState('');
-
+  
   // Función para obtener productos de la API
   const fetchProductos = async () => {
     try {
@@ -35,30 +35,43 @@ const Bienvenida = () => {
   };
 
   // Función para agregar producto al carrito
-  const agregarAlCarrito = (producto) => {
-    const carritoGuardado = JSON.parse(localStorage.getItem('carrito')) || [];
-    const productoEnCarrito = carritoGuardado.find(p => p.id === producto.id);
-
-    let nuevoCarrito;
-    if (productoEnCarrito) {
-      nuevoCarrito = carritoGuardado.map(p =>
-        p.id === producto.id ? { ...p, cantidad: p.cantidad + 1 } : p
-      );
-    } else {
-      nuevoCarrito = [...carritoGuardado, { ...producto, cantidad: 1 }];
-    }
-
-    localStorage.setItem('carrito', JSON.stringify(nuevoCarrito));
-
-    // Usa SweetAlert2 para mostrar la alerta
-    Swal.fire({
-      title: '¡Éxito!',
-      text: `${producto.nombre} ha sido agregado al carrito!`,
-      icon: 'success',
-      confirmButtonText: 'Aceptar'
+  const agregarAlCarrito = async (producto) => {
+    // Mostrar alerta de confirmación
+    const confirmAgregar = await Swal.fire({
+      title: 'Confirmar',
+      text: `¿Deseas agregar ${producto.nombre} al carrito?`,
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, agregar',
+      cancelButtonText: 'Cancelar'
     });
-
-    console.log('Carrito después de agregar:', nuevoCarrito);
+  
+    // Si el usuario confirma, agrega el producto al carrito
+    if (confirmAgregar.isConfirmed) {
+      const carritoGuardado = JSON.parse(localStorage.getItem('carrito')) || [];
+      const productoEnCarrito = carritoGuardado.find(p => p.id === producto.id);
+  
+      let nuevoCarrito;
+      if (productoEnCarrito) {
+        nuevoCarrito = carritoGuardado.map(p =>
+          p.id === producto.id ? { ...p, cantidad: p.cantidad + 1 } : p
+        );
+      } else {
+        nuevoCarrito = [...carritoGuardado, { ...producto, cantidad: 1 }];
+      }
+  
+      localStorage.setItem('carrito', JSON.stringify(nuevoCarrito));
+  
+      // Mostrar alerta de éxito
+      Swal.fire({
+        title: '¡Éxito!',
+        text: `${producto.nombre} ha sido agregado al carrito.`,
+        icon: 'success',
+        confirmButtonText: 'Aceptar'
+      });
+  
+      console.log('Carrito después de agregar:', nuevoCarrito);
+    }
   };
 
   return (
@@ -71,17 +84,13 @@ const Bienvenida = () => {
             <div className="carousel-item active">
               <img src="/img/carrusel-images/supersale.jpg" className="d-block w-100" alt="Oferta 1" />
               <div className="carousel-caption d-none d-md-block">
-                <h5>Hasta 30% de Descuento en Productos de Cuidado de ropa</h5>
-                <p>Exclusivo para compras en app, web y domicilios.</p>
                 <Link to="#" className="btn btn-danger">Compra Aquí</Link>
               </div>
             </div>
             <div className="carousel-item">
               <img src="/img/carrusel-images/pngtree-sale-promotion-50-off-image_914144.png" className="d-block w-100" alt="Oferta 2" />
               <div className="carousel-caption d-none d-md-block">
-                <h5>Hasta 50% de Descuento en Hogar y Limpieza</h5>
-                <p>Oferta válida hasta fin de mes.</p>
-                <Link to="#" className="btn btn-danger">Compra Aquí</Link>
+              <Link to="#" className="btn btn-danger">Compra Aquí</Link>
               </div>
             </div>
           </div>

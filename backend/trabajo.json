@@ -1,18 +1,6 @@
 {
   "Users": [
     {
-      "id": "1",
-      "nombres": "dairon smith",
-      "apellidos": "chapid moreno",
-      "telefono": "3224537890",
-      "correo_electronico": "morenodairon80@gmail.com",
-      "tipo_doc": "CC",
-      "num_doc": "10196055503",
-      "contrasena": "morenodairon77",
-      "genero": "Mujer",
-      "rol": "Cliente"
-    },
-    {
       "id": "2",
       "nombres": "laura",
       "apellidos": "albararcin",
@@ -119,6 +107,54 @@
       "contrasena": "78945487",
       "genero": "masculino",
       "rol": "domiciliario"
+    },
+    {
+      "id": "2020",
+      "nombres": "Narly ",
+      "apellidos": "Sanchez",
+      "telefono": "321827873",
+      "correo_electronico": "narly@gmail.com",
+      "tipo_doc": "Pasaporte",
+      "num_doc": "10302330802",
+      "contrasena": "narly123",
+      "genero": "Femenino",
+      "rol": "Cliente"
+    },
+    {
+      "id": "9116",
+      "nombres": "nicolas",
+      "apellidos": "chapid moreno",
+      "telefono": "36235653623",
+      "correo_electronico": "jh@gmail.com",
+      "tipo_doc": "Cedula de Ciudadania",
+      "num_doc": "1287387",
+      "contrasena": "laura123",
+      "genero": "Masculino",
+      "rol": "Cliente"
+    },
+    {
+      "id": "0ae6",
+      "nombres": "nicolas",
+      "apellidos": "perez",
+      "telefono": "3713736276",
+      "correo_electronico": "jh@gmail.com",
+      "tipo_doc": "Cédula de extranjería",
+      "num_doc": "103474874837",
+      "contrasena": "lau1234",
+      "genero": "Masculino",
+      "rol": "Cliente"
+    },
+    {
+      "id": "e843",
+      "nombres": "Erick",
+      "apellidos": "Sanchez",
+      "telefono": "3224537685",
+      "correo_electronico": "erick12@gmail.com",
+      "tipo_doc": "Cedula de Ciudadania",
+      "num_doc": "1019605502",
+      "contrasena": "123456789",
+      "genero": "Masculino",
+      "rol": "Cliente"
     }
   ],
   "Products": [
@@ -218,7 +254,7 @@
       "id": "c4d9",
       "nombre": "Desengrasante Ultra",
       "descripcion": "Desengrasante de acción ultra concentrada, ideal para eliminar grasa y suciedad incrustada en superficies difíciles, dejando un acabado limpio y libre de residuos.",
-      "imagen": "https://th.bing.com/th/id/R.aaa7d94a0cafc2851dba2dd5e786f2c5?rik=tJ55yQGEQZjr6Q&riu=http%3a%2f%2fwww.vijusaca.com%2fuploads%2f1%2f1%2f7%2f7%2f117765441%2fdesengrasante-ultra_orig.png&ehk=wGWZrS9JajELlEcpJh9CMkfIgz%2ftDqUEMtQ40JiJyKk%3d&risl=&pid=ImgRaw&r=0",
+      "imagen": "https://olimpica.vtexassets.com/arquivos/ids/606453/7701008504981.jpg?v=637626490439500000",
       "categoria": "Hogar y Limpieza",
       "composicion": "Mezcla de agentes desengrasantes y limpiadores.",
       "contenido_neto": "1L",
@@ -412,6 +448,41 @@
       "metodo_pago": "Efectivo",
       "precio_total": 0,
       "estado": "En progreso"
+    },
+    {
+      "id": "a9ec",
+      "fecha_venta": "2024-08-29",
+      "metodo_pago": "Efectivo",
+      "precio_total": 111500,
+      "estado": "En progreso"
+    },
+    {
+      "id": "0f35",
+      "fecha_venta": "2024-08-29",
+      "metodo_pago": "Efectivo",
+      "precio_total": 80400,
+      "estado": "En progreso"
+    },
+    {
+      "id": "85c5",
+      "fecha_venta": "2024-08-29",
+      "metodo_pago": "Efectivo",
+      "precio_total": 53000,
+      "estado": "En progreso"
+    },
+    {
+      "id": "cd35",
+      "fecha_venta": "2024-08-29",
+      "metodo_pago": "Efectivo",
+      "precio_total": 43900,
+      "estado": "En progreso"
+    },
+    {
+      "id": "d18b",
+      "fecha_venta": "2024-08-29",
+      "metodo_pago": "Efectivo",
+      "precio_total": 180000,
+      "estado": "En progreso"
     }
   ],
   "SaleDetails": [
@@ -540,6 +611,97 @@
       "producto_id": "4054",
       "cantidad": 5,
       "precio_unitario": "18900"
+    },
+    {
+      "id": "8a2b",
+      "venta_id": "a9ec",
+      "producto_id": "22ff",
+      "cantidad": 1,
+      "precio_unitario": "33000"
+    },
+    {
+      "id": "df74",
+      "venta_id": "a9ec",
+      "producto_id": "2806",
+      "cantidad": 1,
+      "precio_unitario": "33000"
+    },
+    {
+      "id": "2ed2",
+      "venta_id": "a9ec",
+      "producto_id": "42df",
+      "cantidad": 1,
+      "precio_unitario": "10500"
+    },
+    {
+      "id": "fd53",
+      "venta_id": "a9ec",
+      "producto_id": "0d7b",
+      "cantidad": 1,
+      "precio_unitario": "15000"
+    },
+    {
+      "id": "a086",
+      "venta_id": "a9ec",
+      "producto_id": "8a8d",
+      "cantidad": 1,
+      "precio_unitario": "20000"
+    },
+    {
+      "id": "b6ec",
+      "venta_id": "0f35",
+      "producto_id": "a91b",
+      "cantidad": 1,
+      "precio_unitario": "29900"
+    },
+    {
+      "id": "5b84",
+      "venta_id": "0f35",
+      "producto_id": "42df",
+      "cantidad": 1,
+      "precio_unitario": "10500"
+    },
+    {
+      "id": "8fc3",
+      "venta_id": "0f35",
+      "producto_id": "43b8",
+      "cantidad": 2,
+      "precio_unitario": "20000"
+    },
+    {
+      "id": "32d5",
+      "venta_id": "85c5",
+      "producto_id": "8a8d",
+      "cantidad": 1,
+      "precio_unitario": "20000"
+    },
+    {
+      "id": "d3c3",
+      "venta_id": "85c5",
+      "producto_id": "22ff",
+      "cantidad": 1,
+      "precio_unitario": "33000"
+    },
+    {
+      "id": "f13a",
+      "venta_id": "cd35",
+      "producto_id": "4054",
+      "cantidad": 1,
+      "precio_unitario": "18900"
+    },
+    {
+      "id": "5c01",
+      "venta_id": "cd35",
+      "producto_id": "fcfd",
+      "cantidad": 1,
+      "precio_unitario": "25000"
+    },
+    {
+      "id": "c300",
+      "venta_id": "d18b",
+      "producto_id": "c53a",
+      "cantidad": 4,
+      "precio_unitario": "45000"
     }
   ],
   "domicilio": [
@@ -606,6 +768,49 @@
       "ciudad": "Pereira",
       "codigo_postal": "110013",
       "fecha_entrega": "2024-09-01",
+      "estado": "Entregado"
+    },
+    {
+      "id": "94b2",
+      "venta_id": "a9ec",
+      "direccion": "cra99#157-43",
+      "ciudad": "Bogota",
+      "codigo_postal": "111hd",
+      "fecha_entrega": "2024-09-06",
+      "estado": "Entregado"
+    },
+    {
+      "id": "e11e",
+      "venta_id": "0f35",
+      "direccion": "cll 80",
+      "ciudad": "bogota",
+      "codigo_postal": "128jdbj",
+      "fecha_entrega": "2024-09-26"
+    },
+    {
+      "id": "326d",
+      "venta_id": "85c5",
+      "direccion": "cra99#157-43",
+      "ciudad": "medellin",
+      "codigo_postal": "182j",
+      "fecha_entrega": "2024-08-30"
+    },
+    {
+      "id": "d8f7",
+      "venta_id": "cd35",
+      "direccion": "cra 99#1989",
+      "ciudad": "Medellin",
+      "codigo_postal": "11ha",
+      "fecha_entrega": "2024-09-05",
+      "estado": "Entregado"
+    },
+    {
+      "id": "61e1",
+      "venta_id": "d18b",
+      "direccion": "cll 80",
+      "ciudad": "Bogota",
+      "codigo_postal": "234343",
+      "fecha_entrega": "2024-09-06",
       "estado": "Entregado"
     }
   ]

@@ -4,6 +4,7 @@ import '../../styles/style_venta_cliente.css';
 import Header from "../../componentes/header1";
 import Footer from "../../componentes/footer";
 import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom'; // Importa useNavigate
 
 const VentasCliente = () => {
   const [fechaVenta] = useState(new Date().toISOString().split('T')[0]); // Fecha actual
@@ -20,6 +21,8 @@ const VentasCliente = () => {
     fecha_entrega: ''
   });
   const [mostrarDomicilio, setMostrarDomicilio] = useState(false);
+
+  const navigate = useNavigate(); // Inicializa useNavigate
 
   // Asegúrate de obtener el ID del cliente desde la sesión o local storage
   const clienteId = localStorage.getItem('clienteId') || 'ID_DEL_CLIENTE'; 
@@ -88,10 +91,23 @@ const VentasCliente = () => {
         icon: 'success',
         title: 'Venta registrada con éxito',
         text: 'La venta ha sido registrada correctamente.',
+      }).then(() => {
+        // Redirige a bienvenida.js después de cerrar la alerta
+        navigate('/');
+        // Resetea los datos
+        setMetodoPago('');
+        setPrecioTotal('');
+        setCarrito([]);
+        setDomicilio({
+          direccion: '',
+          ciudad: '',
+          codigo_postal: '',
+          fecha_entrega: ''
+        });
+        setMostrarDomicilio(false);
+        localStorage.removeItem('carrito');
+        localStorage.removeItem('clienteId');
       });
-
-      localStorage.removeItem('carrito');
-      localStorage.removeItem('clienteId');
     } catch (error) {
       console.error('Error al registrar la venta:', error);
       Swal.fire({
@@ -292,7 +308,6 @@ const VentasCliente = () => {
       <br/>
       <Footer />
     </div>
-
   );
 };
 

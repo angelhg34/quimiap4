@@ -42,6 +42,12 @@ const Productos = () => {
       [e.target.id]: e.target.value,
     });
   };
+  const handleKeyPress = (event) => {
+    // Permite solo letras y espacios
+    if (!/^[a-zA-Z\s]*$/.test(event.key)) {
+      event.preventDefault();
+    }
+  }
 
   // Función para registrar un nuevo producto
   const handleRegisterProduct = async () => {
@@ -153,12 +159,12 @@ const Productos = () => {
       <Header2 />
       <div className="container">
           {/* Contenedor para el título y el botón alineados a la izquierda */}
-          <div className="d-flex flex-column align-items-start mb-1">
             <h2>Registro de productos</h2>
+            <div className="d-flex justify-content-end mt-2">
             <button type="button" className="btn btn-success mt-2" data-bs-toggle="modal" data-bs-target="#registroProductoModal">
               Registrar Producto
             </button>
-          </div>
+            </div>
           {/* Modal */}
           <div className="modal fade" id="registroProductoModal" tabIndex={-1} aria-labelledby="registroProductoModalLabel" aria-hidden="true">
             <div className="modal-dialog">
@@ -208,7 +214,7 @@ const Productos = () => {
                     </div>
                     <div className="mb-3">
                       <label htmlFor="usos" className="form-label">Usos</label>
-                      <input type="text" className="form-control" id="usos" placeholder="Ingrese usos del producto" value={formData.usos} onChange={handleInputChange} />
+                      <input type="text" className="form-control" id="usos" placeholder="Ingrese usos del producto" value={formData.usos} onChange={handleInputChange} onKeyPress={handleKeyPress} />
                     </div>
                     <div className="mb-3">
                       <label htmlFor="advertencias" className="form-label">Advertencias</label>
