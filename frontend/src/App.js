@@ -15,6 +15,7 @@ import Domiciliario from "./paginas/auth/domiciliario";
 import VentasDomiciliario from "./paginas/auth/ventas_domiciliario";
 import VentasCliente from "./paginas/auth/venta_cliente";
 import MisVentas from "./paginas/auth/MisVentas";
+import Inicio_registro from "./paginas/auth/inicio_registro";
 function App() {
   return (
     <Fragment>
@@ -36,7 +37,7 @@ function App() {
           <Route path='/ventas_domiciliario.js' exact element={<VentasDomiciliario />}/>
           <Route path='/venta_cliente.js' exact element={<VentasCliente />}/>
           <Route path='/MisVentas.js' exact element={<MisVentas />}/>
-
+          <Route path='/inicio_registro.js' exact element={<Inicio_registro/>}/>
 
         </Routes>
       </Router>

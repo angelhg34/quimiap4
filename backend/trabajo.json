@@ -155,6 +155,17 @@
       "contrasena": "123456789",
       "genero": "Masculino",
       "rol": "Cliente"
+    },
+    {
+      "id": "2ef4",
+      "tipo_doc": "pasaporte",
+      "num_doc": "1081399564",
+      "nombres": "Laura",
+      "apellidos": "Albarracin",
+      "telefono": "3244582033",
+      "correo_electronico": "lau@gmail.com",
+      "contrasena": "lau1014",
+      "rol": "Cliente"
     }
   ],
   "Products": [

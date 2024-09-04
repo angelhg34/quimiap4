@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
 import '../styles/header_styles.css';
 import Swal from 'sweetalert2';
 
 const Header = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [isAuthenticated, setIsAuthenticated] = useState(
     sessionStorage.getItem("isAuthenticated") === "true"
   );
@@ -14,6 +11,9 @@ const Header = () => {
     return sessionStorage.getItem("userName") || "";
   });
   const navigate = useNavigate();
+  const handleRedirect = () => {
+    navigate('/inicio_registro.js'); // Cambia esta ruta a la ruta correcta de tu página de inicio de sesión/registro
+  };
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -25,71 +25,6 @@ const Header = () => {
       setUserName("");
     }
   }, [isAuthenticated]);
-
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await axios.get("http://localhost:4000/Users", {
-        params: {
-          correo_electronico: email,
-          contrasena: password,
-        },
-      });
-
-      const user = response.data.find(
-        (u) => u.correo_electronico === email && u.contrasena === password
-      );
-
-      if (user) {
-        sessionStorage.setItem("isAuthenticated", "true");
-        sessionStorage.setItem("userRole", user.rol);
-        sessionStorage.setItem("userName", user.nombres);
-        sessionStorage.setItem("userId", user.id); // Guardar el ID del usuario
-        setIsAuthenticated(true);
-        setUserName(user.nombres);
-
-        // Mostrar alerta de éxito
-        await Swal.fire({
-          title: 'Inicio de sesión exitoso',
-          text: `Bienvenido, ${user.nombres}!`,
-          icon: 'success',
-          confirmButtonText: 'Aceptar'
-        });
-
-        switch (user.rol.toLowerCase()) {
-          case "cliente":
-            navigate("/");
-            break;
-          case "jefe de producción":
-            navigate("/jf_produccion.js");
-            break;
-          case "domiciliario":
-            navigate("/domiciliario.js");
-            break;
-          case "gerente":
-            navigate("/usuarios_admin.js");
-            break;
-          default:
-            navigate("/");
-        }
-      } else {
-        Swal.fire({
-          title: 'Error',
-          text: 'Correo o contraseña incorrectos',
-          icon: 'error',
-          confirmButtonText: 'Aceptar'
-        });
-      }
-    } catch (error) {
-      console.error("Error during login:", error);
-      Swal.fire({
-        title: 'Error',
-        text: 'Ocurrió un error durante el inicio de sesión. Por favor, intente nuevamente.',
-        icon: 'error',
-        confirmButtonText: 'Aceptar'
-      });
-    }
-  };
 
 
   const handleLogout = () => {
@@ -186,59 +121,13 @@ const Header = () => {
             ) : (
               <>
                 <button
-                  className="btn btn-outline-success dropdown-toggle"
-                  id="loginDropdown"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  <i className="bi bi-person" /> Iniciar sesión
-                </button>
-                <div
-                  className="dropdown-menu dropdown-menu-end dropdown-menu-login"
-                  aria-labelledby="loginDropdown"
-                >
-                  <form onSubmit={handleLogin}>
-                    <div className="mb-3">
-                      <label htmlFor="email" className="form-label">
-                        Correo electrónico
-                      </label>
-                      <input
-                        type="email"
-                        className="form-control"
-                        id="email"
-                        placeholder="Ingresa tu correo"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                      />
-                    </div>
-                    <div className="mb-3">
-                      <label htmlFor="password" className="form-label">
-                        Contraseña
-                      </label>
-                      <input
-                        type="password"
-                        className="form-control"
-                        id="password"
-                        placeholder="Ingresa tu contraseña"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                      />
-                    </div>
-                    <div className="mb-3">
-                      <Link to="#">¿Olvidaste tu contraseña?</Link>
-                    </div>
-                    <button type="submit" className="btn btn-primary w-100">
-                      Ingresar
-                    </button>
-                  </form>
-                  <div className="text-center mt-3">
-                    <Link to="/registro_clientes.js">
-                      Quiero crear mi cuenta
-                    </Link>
-                  </div>
-                </div>
+                className="btn btn-outline-success dropdown-toggle"
+                id="loginDropdown"
+                type="button"
+                onClick={handleRedirect} // Usa handleRedirect aquí
+              >
+                <i className="bi bi-person" /> Iniciar sesión o Registrate
+              </button>
               </>
             )}
           </div>
