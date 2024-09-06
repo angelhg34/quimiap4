@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import '../../styles/style_usuarios.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch, faAlignCenter, faEdit, faTimes } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import Header2 from '../../componentes/header2';
 import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom'; // Importa useNavigate
 
 const UsuariosAdmin = () => {
   const [formData, setFormData] = useState({
@@ -14,18 +17,15 @@ const UsuariosAdmin = () => {
     num_doc: '',
     contrasena: '',
     genero: '',
-    rol: ''
+    rol: '',
+    estado: 'Activo'
   });
-  const handleKeyPress = (event) => {
-    // Permite solo letras y espacios
-    if (!/^[a-zA-Z\s]*$/.test(event.key)) {
-      event.preventDefault();
-    }
-  }
-  
   const [users, setUsers] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [userTypeFilter, setUserTypeFilter] = useState('todos');
+  const navigate = useNavigate(); // Inicializa useNavigate
 
   // Función para obtener usuarios de la API
   const fetchUsers = async () => {
@@ -48,7 +48,6 @@ const UsuariosAdmin = () => {
     fetchUsers();
   }, []);
 
-  // Manejar cambio en los campos de formulario
   const handleInputChange = (e) => {
     setFormData({
       ...formData,
@@ -56,10 +55,8 @@ const UsuariosAdmin = () => {
     });
   };
 
-  // Función para guardar un nuevo usuario o editar uno existente
   const handleSaveUser = async () => {
     if (isEditing && currentUser) {
-      // Modo de edición: actualiza el usuario existente
       Swal.fire({
         title: '¿Desea continuar para guardar los cambios?',
         icon: 'warning',
@@ -67,13 +64,13 @@ const UsuariosAdmin = () => {
         showCancelButton: true,
         confirmButtonText: 'Guardar',
         denyButtonText: `No Guardar`,
-        cancelButtonText: 'Cancelar', // Cambia el texto del botón de cancelar
-        confirmButtonColor: '#3085d6', // Establece el color azul para el botón de guardar
+        cancelButtonText: 'Cancelar',
+        confirmButtonColor: '#3085d6',
       }).then(async (result) => {
         if (result.isConfirmed) {
           try {
             await axios.put(`http://localhost:4000/Users/${currentUser.id}`, formData);
-            fetchUsers(); // Actualiza la lista de usuarios
+            fetchUsers();
             resetForm();
             setIsEditing(false);
             Swal.fire({
@@ -83,8 +80,7 @@ const UsuariosAdmin = () => {
               confirmButtonText: 'OK',
               confirmButtonColor: '#3085d6',
             }).then(() => {
-              Swal.close(); // Cierra la ventana de alerta de confirmación
-              window.location.href = '/usuarios_admin.js'; // Redirige a la lista de usuarios
+              navigate('/usuarios_admin'); // Redirige a la lista de usuarios
             });
           } catch (error) {
             console.error('Error updating user:', error);
@@ -102,16 +98,13 @@ const UsuariosAdmin = () => {
             text: 'Los cambios que has hecho no se guardaron.',
             icon: 'info',
             confirmButtonText: 'OK',
-            confirmButtonColor: '#3085d6', // Cambia el color del botón en el mensaje de "No guardar"
+            confirmButtonColor: '#3085d6',
           }).then(() => {
-            // Aquí puedes realizar una acción adicional si es necesario, como redirigir a otra página
-            Swal.close(); // Cierra la ventana de alerta de confirmación
-            window.location.href = '/usuarios_admin.js'; // Opcional: redirige a la lista de usuarios
+            navigate('/usuarios_admin');
           });
         }
       });
     } else {
-      // Modo de creación: guarda un nuevo usuario
       try {
         await axios.post('http://localhost:4000/Users', formData);
         Swal.fire({
@@ -121,10 +114,10 @@ const UsuariosAdmin = () => {
           confirmButtonText: 'OK',
           confirmButtonColor: '#3085d6',
         }).then(() => {
-          fetchUsers(); // Actualiza la lista de usuarios
-          resetForm(); // Resetea el formulario
+          fetchUsers();
+          resetForm();
           setIsEditing(false);
-          window.location.href = '/usuarios_admin.js'; // Redirige a la lista de usuarios
+          navigate('/usuarios_admin');
         });
       } catch (error) {
         console.error('Error saving user:', error);
@@ -139,43 +132,44 @@ const UsuariosAdmin = () => {
     }
   };
 
-  // Función para editar un usuario
   const handleEditUser = (user) => {
     setIsEditing(true);
     setCurrentUser(user);
     setFormData(user);
   };
 
-  // Función para eliminar un usuario
-  const handleDeleteUser = async (id) => {
-    const confirmDelete = await Swal.fire({
+  const handleSetInactiveUser = async (id) => {
+    const confirmInactive = await Swal.fire({
       title: '¿Estás seguro?',
-      text: 'Eliminar este usuario es una acción irreversible.',
+      text: 'El usuario será marcado como inactivo.',
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonText: 'Sí, eliminar',
+      confirmButtonText: 'Sí, inactivar',
       cancelButtonText: 'Cancelar',
       confirmButtonColor: '#d33',
       cancelButtonColor: '#3085d6',
     });
 
-    if (confirmDelete.isConfirmed) {
+    if (confirmInactive.isConfirmed) {
       try {
-        await axios.delete(`http://localhost:4000/Users/${id}`);
+        const response = await axios.get(`http://localhost:4000/Users/${id}`);
+        const usuarioActual = response.data;
+        const usuarioActualizado = { ...usuarioActual, estado: 'Inactivo' };
+        await axios.put(`http://localhost:4000/Users/${id}`, usuarioActualizado);
         Swal.fire({
-          title: '¡Eliminado!',
-          text: 'Usuario eliminado exitosamente.',
+          title: '¡Inactivado!',
+          text: 'Usuario marcado como inactivo exitosamente.',
           icon: 'success',
           confirmButtonText: 'OK',
           confirmButtonColor: '#3085d6',
         }).then(() => {
-          fetchUsers(); // Actualiza la lista de usuarios
+          fetchUsers();
         });
       } catch (error) {
-        console.error('Error deleting user:', error);
+        console.error('Error setting user inactive:', error);
         Swal.fire({
           title: 'Error!',
-          text: 'Error al eliminar el usuario.',
+          text: 'Error al inactivar el usuario.',
           icon: 'error',
           confirmButtonText: 'OK',
           confirmButtonColor: '#d33',
@@ -184,7 +178,6 @@ const UsuariosAdmin = () => {
     }
   };
 
-  // Resetear formulario
   const resetForm = () => {
     setFormData({
       nombres: '',
@@ -200,6 +193,31 @@ const UsuariosAdmin = () => {
     setCurrentUser(null);
   };
 
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const handleUserTypeFilterChange = (e) => {
+    setUserTypeFilter(e.target.value);
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.target.id === 'num_doc' && !/[0-9]/.test(e.key)) {
+      e.preventDefault();
+    }
+  };
+
+  const filteredUsers = users
+  .filter(user => user.id.toString().includes(searchTerm))
+  .filter(user => {
+    if (userTypeFilter === 'Gerente') {
+      return user.rol !== 'Cliente'; // Filtrar fuera los clientes si el filtro es "Gerente"
+    }
+    return userTypeFilter === 'todos' || user.rol === userTypeFilter;
+  });
+    
+
+    
   return (
     <div>
       <Header2 />
@@ -266,25 +284,46 @@ const UsuariosAdmin = () => {
                       <label htmlFor="contrasena" className="form-label">Contraseña</label>
                       <input type="Password" className="form-control" id="contrasena" placeholder="Ingrese Contraseña" value={formData.contrasena} onChange={handleInputChange} />
                     </div>
+
                     <div className="mb-3">
                       <label htmlFor="rol" className="form-label">Rol</label>
                       <select className="form-select" id="rol" value={formData.rol} onChange={handleInputChange} required>
                         <option value="" disabled selected>Selecciona una opción</option>
                         <option value="domiciliario">Domiciliario</option>
                         <option value="jefe de produccion">Jefe de Producción</option>
-                        <option value="gerente">Gerente</option>
+                        <option value="Gerente">Gerente</option>
                       </select>
                     </div>
                   </form>
                 </div>
                 <div className="modal-footer">
-                  <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={resetForm}>Cerrar</button>
+                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={resetForm}>Cerrar</button>
                   <button type="button" className="btn btn-success" onClick={handleSaveUser}>
                     {isEditing ? 'Guardar Cambios' : 'Guardar'}
                   </button>
                 </div>
               </div>
             </div>
+          </div>
+          <div className="mb-3 d-flex align-items-center">
+            <FontAwesomeIcon icon={faSearch} className="me-2" style={{ fontSize: '20px' }} />
+            <input
+              type="text"
+              id="searchInput"
+              className="form-control"
+              placeholder="Buscar por ID"
+              value={searchTerm}
+              onChange={handleSearchChange}
+            />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="userTypeFilter" className="form-label">Filtrar por tipo de usuario:</label>
+            <select id="userTypeFilter" className="form-select" value={userTypeFilter} onChange={handleUserTypeFilterChange}>
+              <option value="todos">Todos</option>
+              <option value="Gerente">Gerente</option>
+              <option value="Transportador">Transportador</option>
+              <option value="Cliente">Cliente</option>
+            </select>
           </div>
           {/* Tabla de usuarios */}
           <table className="table table-striped mt-4">
@@ -299,13 +338,14 @@ const UsuariosAdmin = () => {
                 <th>Tipo de Documento</th>
                 <th>Nº Identificación</th>
                 <th>Rol</th>
+                <th>Estado</th>
                 <th>Editar</th>
-                <th>Eliminar</th>
+                <th>Desactivar</th>
               </tr>
             </thead>
             <tbody>
-              {users.map((user) => (
-                <tr key={user +1}>
+            {filteredUsers.map(user => (
+                <tr key={user.id}>
                   <td>{user.id}</td>
                   <td>{user.nombres}</td>
                   <td>{user.apellidos}</td>
@@ -315,26 +355,31 @@ const UsuariosAdmin = () => {
                   <td>{user.tipo_doc}</td>
                   <td>{user.num_doc}</td>
                   <td>{user.rol}</td>
+                  <td>{user.estado}</td>
                   <td>
-                    <button
-                      type="button"
-                      className="btn btn-warning btn-sm"
-                      data-bs-toggle="modal"
-                      data-bs-target="#registroUserModal"
-                      onClick={() => handleEditUser(user)}
-                    >
-                      Editar
-                    </button>
-                  </td>
-                  <td>
-                    <button
-                      type="button"
-                      className="btn btn-danger btn-sm"
-                      onClick={() => handleDeleteUser(user.id)}
-                    >
-                      Eliminar
-                    </button>
-                  </td>
+                  <div className="center-buttons">
+    <button
+      type="button"
+      className="button-style"
+      data-bs-toggle="modal"
+      data-bs-target="#registroUserModal"
+      onClick={() => handleEditUser(user)}
+    >
+      <FontAwesomeIcon icon={faEdit} />
+    </button>
+  </div>
+</td>
+<td>
+  <div className="center-buttons">
+    <button
+      type="button"
+      className="button-style"
+      onClick={() => handleSetInactiveUser(user.id)}
+    >
+      <FontAwesomeIcon icon={faTimes} />
+    </button>
+  </div>
+</td>
                 </tr>
               ))}
             </tbody>

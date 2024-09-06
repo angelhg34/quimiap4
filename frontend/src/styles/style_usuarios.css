@@ -126,7 +126,18 @@ body {
     
  }
 
- 
+ .center-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .button-style {
+    border: none;
+    background: none;
+    padding: 0;
+    cursor: pointer;
+  }
  
  .dropdown_menu.open {
      height: 240px;
