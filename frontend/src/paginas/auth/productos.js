@@ -115,23 +115,33 @@ const Productos = () => {
     }
   };
 
-  // Función para eliminar un producto
-  const handleDeleteProduct = async (productId) => {
+  const handleDeleteProduct = async (product) => {
+    if (product.estado !== 'descontinuado') {
+      Swal.fire({
+        title: 'Error',
+        text: 'Solo los productos descontinuados se pueden eliminar.',
+        icon: 'error',
+        timer: 2000,
+      });
+      return;
+    }
+  
     const confirmDelete = await Swal.fire({
       title: 'Confirmar',
-      text: '¿Estás seguro de que deseas eliminar este producto?',
+      text: `¿Estás seguro de que deseas eliminar el producto "${product.nombre}"?`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonText: 'Sí, eliminar',
       cancelButtonText: 'Cancelar'
     });
+  
     if (confirmDelete.isConfirmed) {
       try {
-        await axios.delete(`http://localhost:4000/Products/${productId}`);
+        await axios.delete(`http://localhost:4000/Products/${product.id}`);
         fetchProductos(); // Actualizar la lista de productos
         Swal.fire({
-          title: 'Producto se elimino!!',
-          text: `El producto "${formData.nombre}" se elimino`,
+          title: 'Producto eliminado!',
+          text: `El producto "${product.nombre}" ha sido eliminado.`,
           icon: 'success',
           showConfirmButton: false,
           timer: 1000,
@@ -142,7 +152,7 @@ const Productos = () => {
           title: 'Error',
           text: 'No se pudo eliminar el producto.',
           icon: 'error',
-          timer: 3000, // Duración de 3 segundos
+          timer: 3000,
         });
       }
     }
@@ -159,8 +169,9 @@ const Productos = () => {
       contenido_neto: '',
       usos: '',
       advertencias: '',
-      cantidad:'',
       precio_unitario: '',
+      cantidad:'',
+      estado:''
     });
     setCurrentProduct(null);
   };

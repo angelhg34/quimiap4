@@ -80,7 +80,7 @@ const UsuariosAdmin = () => {
               confirmButtonText: 'OK',
               confirmButtonColor: '#3085d6',
             }).then(() => {
-              navigate('/usuarios_admin'); // Redirige a la lista de usuarios
+              navigate('/usuarios_admin.js'); // Redirige a la lista de usuarios
             });
           } catch (error) {
             console.error('Error updating user:', error);
@@ -117,7 +117,7 @@ const UsuariosAdmin = () => {
           fetchUsers();
           resetForm();
           setIsEditing(false);
-          navigate('/usuarios_admin');
+          navigate('/usuarios_admin.js');
         });
       } catch (error) {
         console.error('Error saving user:', error);

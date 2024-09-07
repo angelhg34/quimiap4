@@ -79,7 +79,7 @@ const Bienvenida = () => {
       <Header />
       {/* Hero Section */}
       <div className="hero">
-        <div id="mainCarousel" className="carousel slide" data-bs-ride="carousel">
+        <div id="mainCarousel" className="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
           <div className="carousel-inner">
             <div className="carousel-item active">
               <img src="/img/carrusel-images/supersale.jpg" className="d-block w-100" alt="Oferta 1" />
@@ -90,20 +90,20 @@ const Bienvenida = () => {
             <div className="carousel-item">
               <img src="/img/carrusel-images/pngtree-sale-promotion-50-off-image_914144.png" className="d-block w-100" alt="Oferta 2" />
               <div className="carousel-caption d-none d-md-block">
-              <Link to="#" className="btn btn-danger">Compra Aquí</Link>
+                <Link to="#" className="btn btn-danger">Compra Aquí</Link>
+              </div>
+            </div>
+            <div className="carousel-item">
+              <img src="/img/carrusel-images/slide-1.webp" className="d-block w-80" alt="Oferta 3" />
+              <div className="carousel-caption d-none d-md-block">
+                <Link to="#" className="btn btn-danger">Compra Aquí</Link>
               </div>
             </div>
           </div>
-          <button className="carousel-control-prev" type="button" data-bs-target="#mainCarousel" data-bs-slide="prev">
-            <span className="carousel-control-prev-icon" aria-hidden="true" />
-            <span className="visually-hidden">Previous</span>
-          </button>
-          <button className="carousel-control-next" type="button" data-bs-target="#mainCarousel" data-bs-slide="next">
-            <span className="carousel-control-next-icon" aria-hidden="true" />
-            <span className="visually-hidden">Next</span>
-          </button>
         </div>
       </div>
+
+
       {/* Categorías */}
       <section className="categories-section">
         <div className="container">
