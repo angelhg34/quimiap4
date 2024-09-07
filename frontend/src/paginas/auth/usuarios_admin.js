@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import '../../styles/style_usuarios.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch, faAlignCenter, faEdit, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faSearch, faEdit, faTrash  } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import Header2 from '../../componentes/header2';
 import Swal from 'sweetalert2';
@@ -376,7 +376,7 @@ const UsuariosAdmin = () => {
       className="button-style"
       onClick={() => handleSetInactiveUser(user.id)}
     >
-      <FontAwesomeIcon icon={faTimes} />
+      <FontAwesomeIcon icon={faTrash} />
     </button>
   </div>
 </td>
