@@ -338,3 +338,13 @@ body {
      filter: blur(5px);
      pointer-events: none; /* Evita la interacción con el contenido de fondo */
  }
+ .position-relative {
+    position: relative;
+  }
+  
+  .filter-menu {
+    position: absolute; /* Posiciona el menú de manera absoluta dentro del contenedor relativo */
+    margin-left: 300px; /* Espacio entre el botón y el menú (ajusta según sea necesario) */
+    z-index: 1000; /* Asegúrate de que el menú esté por encima de otros elementos */
+    min-width: 150px; /* Opcional: Ajusta el ancho mínimo del menú si es necesario */
+  }

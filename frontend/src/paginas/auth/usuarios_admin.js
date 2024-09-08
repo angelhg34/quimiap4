@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import '../../styles/style_usuarios.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faEdit, faTrash, faFilter } from '@fortawesome/free-solid-svg-icons';
@@ -25,9 +25,11 @@ const UsuariosAdmin = () => {
   const [currentUser, setCurrentUser] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [userTypeFilter, setUserTypeFilter] = useState('todos');
-  const [showFilters, setShowFilters] = useState(false); // Estado para mostrar/ocultar filtros
+  const [showFilters, setShowFilters] = useState(false);
   const navigate = useNavigate();
+  const filterMenuRef = useRef(null);
 
+  // Fetch users from the API
   const fetchUsers = async () => {
     try {
       const response = await axios.get('http://localhost:4000/Users');
@@ -48,6 +50,7 @@ const UsuariosAdmin = () => {
     fetchUsers();
   }, []);
 
+  // Handle input changes
   const handleInputChange = (e) => {
     setFormData({
       ...formData,
@@ -55,6 +58,7 @@ const UsuariosAdmin = () => {
     });
   };
 
+  // Save user information
   const handleSaveUser = async () => {
     if (isEditing && currentUser) {
       Swal.fire({
@@ -63,7 +67,7 @@ const UsuariosAdmin = () => {
         showDenyButton: true,
         showCancelButton: true,
         confirmButtonText: 'Guardar',
-        denyButtonText: `No Guardar`,
+        denyButtonText: 'No Guardar',
         cancelButtonText: 'Cancelar',
         confirmButtonColor: '#3085d6',
       }).then(async (result) => {
@@ -80,7 +84,7 @@ const UsuariosAdmin = () => {
               confirmButtonText: 'OK',
               confirmButtonColor: '#3085d6',
             }).then(() => {
-              navigate('/usuarios_admin.js');
+              navigate('/usuarios_admin');
             });
           } catch (error) {
             console.error('Error updating user:', error);
@@ -132,12 +136,14 @@ const UsuariosAdmin = () => {
     }
   };
 
+  // Edit user
   const handleEditUser = (user) => {
     setIsEditing(true);
     setCurrentUser(user);
     setFormData(user);
   };
 
+  // Set user as inactive
   const handleSetInactiveUser = async (id) => {
     const confirmInactive = await Swal.fire({
       title: '¿Estás seguro?',
@@ -178,6 +184,7 @@ const UsuariosAdmin = () => {
     }
   };
 
+  // Reset form to initial state
   const resetForm = () => {
     setFormData({
       nombres: '',
@@ -188,33 +195,43 @@ const UsuariosAdmin = () => {
       num_doc: '',
       contrasena: '',
       genero: '',
-      rol: ''
+      rol: '',
+      estado: 'Activo',
     });
     setCurrentUser(null);
   };
 
+  // Handle search input change
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
   };
 
+  // Handle user type filter change
   const handleUserTypeFilterChange = (e) => {
     setUserTypeFilter(e.target.value);
   };
 
+  // Restrict non-numeric input in the document number field
   const handleKeyPress = (e) => {
     if (e.target.id === 'num_doc' && !/[0-9]/.test(e.key)) {
       e.preventDefault();
     }
   };
 
+  // Filter users based on search and filters
   const filteredUsers = users
-    .filter(user => user.id.toString().includes(searchTerm))
-    .filter(user => {
-      if (userTypeFilter === 'Gerente') {
+    .filter((user) => user.id.toString().includes(searchTerm))
+    .filter((user) => {
+      if (userTypeFilter === 'UsuariosAdmin') {
         return user.rol !== 'Cliente';
       }
       return userTypeFilter === 'todos' || user.rol === userTypeFilter;
     });
+
+
+
+
+
     
   return (
     <div>
@@ -223,38 +240,46 @@ const UsuariosAdmin = () => {
         <section className="container mt-5">
           <h2>Registro de usuarios</h2>
           <br />
-          <div className="d-flex justify-content-between align-items-center mb-3">
-            {/* Barra de búsqueda */}
-            <div className="d-flex align-items-center">
-              <FontAwesomeIcon icon={faSearch} className="me-2" style={{ fontSize: '20px' }} />
-              <input
-                type="text"
-                id="searchInput"
-                className="form-control"
-                placeholder="Buscar por ID"
-                value={searchTerm}
-                onChange={handleSearchChange}
-              />
-              {/* Ícono de filtro */}
-              <button
-                type="button"
-                className="btn btn-light ms-2"
-                onClick={() => setShowFilters(!showFilters)}
-              >
-                <FontAwesomeIcon icon={faFilter} style={{ fontSize: '20px' }} />
-              </button>
-            </div>
-            {/* Botón para abrir el modal */}
-            <button
-              type="button"
-              className="btn btn-success"
-              data-bs-toggle="modal"
-              data-bs-target="#registroUserModal"
-            >
-              Registrar Usuario
-            </button>
-          </div>
-          
+         <div className="d-flex justify-content-between align-items-center mb-3 position-relative">
+  {/* Barra de búsqueda */}
+  <div className="d-flex align-items-center">
+    <FontAwesomeIcon icon={faSearch} className="me-2" style={{ fontSize: '20px' }} />
+    <input
+      type="text"
+      id="searchInput"
+      className="form-control"
+      placeholder="Buscar por ID"
+      value={searchTerm}
+      onChange={handleSearchChange}
+    />
+    {/* Ícono de filtro */}
+    <button
+      type="button"
+      className="btn btn-light ms-2 position-relative"
+      onClick={() => setShowFilters(!showFilters)}
+    >
+      <FontAwesomeIcon icon={faFilter} style={{ fontSize: '20px' }} />
+    </button>
+    {showFilters && (
+      <div ref={filterMenuRef} className="filter-menu position-absolute mt-2 p-2 bg-white border rounded shadow">
+        <select id="userTypeFilter" className="form-select" value={userTypeFilter} onChange={handleUserTypeFilterChange}>
+          <option value="todos">Todos</option>
+          <option value="UsuariosAdmin">UsuariosAdmin</option>
+          <option value="Cliente">Cliente</option>
+        </select>
+      </div>
+    )}
+  </div>
+  {/* Botón para abrir el modal */}
+  <button
+    type="button"
+    className="btn btn-success"
+    data-bs-toggle="modal"
+    data-bs-target="#registroUserModal"
+  >
+    Registrar Usuario
+  </button>
+</div>
           {/* Modal */}
           <div className="modal fade" id="registroUserModal" tabIndex={-1} aria-labelledby="registroUserModalLabel" aria-hidden="true">
             <div className="modal-dialog">
@@ -328,17 +353,7 @@ const UsuariosAdmin = () => {
               </div>
             </div>
           </div>
-          {showFilters && (
-            <div className="mb-3">
-              <label htmlFor="userTypeFilter" className="form-label">Filtrar por tipo de usuario:</label>
-              <select id="userTypeFilter" className="form-select" value={userTypeFilter} onChange={handleUserTypeFilterChange}>
-                <option value="todos">Todos</option>
-                <option value="Gerente">Gerente</option>
-                <option value="Transportador">Transportador</option>
-                <option value="Cliente">Cliente</option>
-              </select>
-            </div>
-          )}
+          
           {/* Tabla de usuarios */}
           <table className="table table-striped mt-4">
             <thead>
