@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import '../../styles/style_usuarios.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch, faEdit, faTrash  } from '@fortawesome/free-solid-svg-icons';
+import { faSearch, faEdit, faTrash, faFilter } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import Header2 from '../../componentes/header2';
 import Swal from 'sweetalert2';
-import { useNavigate } from 'react-router-dom'; // Importa useNavigate
+import { useNavigate } from 'react-router-dom';
 
 const UsuariosAdmin = () => {
   const [formData, setFormData] = useState({
@@ -25,9 +25,9 @@ const UsuariosAdmin = () => {
   const [currentUser, setCurrentUser] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [userTypeFilter, setUserTypeFilter] = useState('todos');
-  const navigate = useNavigate(); // Inicializa useNavigate
+  const [showFilters, setShowFilters] = useState(false); // Estado para mostrar/ocultar filtros
+  const navigate = useNavigate();
 
-  // Función para obtener usuarios de la API
   const fetchUsers = async () => {
     try {
       const response = await axios.get('http://localhost:4000/Users');
@@ -80,7 +80,7 @@ const UsuariosAdmin = () => {
               confirmButtonText: 'OK',
               confirmButtonColor: '#3085d6',
             }).then(() => {
-              navigate('/usuarios_admin.js'); // Redirige a la lista de usuarios
+              navigate('/usuarios_admin.js');
             });
           } catch (error) {
             console.error('Error updating user:', error);
@@ -208,29 +208,53 @@ const UsuariosAdmin = () => {
   };
 
   const filteredUsers = users
-  .filter(user => user.id.toString().includes(searchTerm))
-  .filter(user => {
-    if (userTypeFilter === 'Gerente') {
-      return user.rol !== 'Cliente'; // Filtrar fuera los clientes si el filtro es "Gerente"
-    }
-    return userTypeFilter === 'todos' || user.rol === userTypeFilter;
-  });
-    
-
+    .filter(user => user.id.toString().includes(searchTerm))
+    .filter(user => {
+      if (userTypeFilter === 'Gerente') {
+        return user.rol !== 'Cliente';
+      }
+      return userTypeFilter === 'todos' || user.rol === userTypeFilter;
+    });
     
   return (
     <div>
       <Header2 />
       <div className="container">
         <section className="container mt-5">
-          <h2>Registro de usuarios </h2>
+          <h2>Registro de usuarios</h2>
           <br />
-          <div className="d-flex justify-content-end">
-          {/* Botón para abrir el modal */}
-          <button type="button" className="btn btn-success justify-content-end" data-bs-toggle="modal" data-bs-target="#registroUserModal">
-            Registrar Usuario
-          </button>
+          <div className="d-flex justify-content-between align-items-center mb-3">
+            {/* Barra de búsqueda */}
+            <div className="d-flex align-items-center">
+              <FontAwesomeIcon icon={faSearch} className="me-2" style={{ fontSize: '20px' }} />
+              <input
+                type="text"
+                id="searchInput"
+                className="form-control"
+                placeholder="Buscar por ID"
+                value={searchTerm}
+                onChange={handleSearchChange}
+              />
+              {/* Ícono de filtro */}
+              <button
+                type="button"
+                className="btn btn-light ms-2"
+                onClick={() => setShowFilters(!showFilters)}
+              >
+                <FontAwesomeIcon icon={faFilter} style={{ fontSize: '20px' }} />
+              </button>
+            </div>
+            {/* Botón para abrir el modal */}
+            <button
+              type="button"
+              className="btn btn-success"
+              data-bs-toggle="modal"
+              data-bs-target="#registroUserModal"
+            >
+              Registrar Usuario
+            </button>
           </div>
+          
           {/* Modal */}
           <div className="modal fade" id="registroUserModal" tabIndex={-1} aria-labelledby="registroUserModalLabel" aria-hidden="true">
             <div className="modal-dialog">
@@ -245,7 +269,7 @@ const UsuariosAdmin = () => {
                     <div className="mb-3">
                       <label htmlFor="tipo_doc" className="form-label">Tipo de Documento</label>
                       <select className="form-select" id="tipo_doc" value={formData.tipo_doc} onChange={handleInputChange} required>
-                        <option value="" disabled selected>Selecciona una opción</option>
+                        <option value="" disabled>Selecciona una opción</option>
                         <option value="ti">Tarjeta de identidad</option>
                         <option value="cc">Cédula de ciudadanía</option>
                         <option value="ce">Cédula de extranjería</option>
@@ -261,7 +285,7 @@ const UsuariosAdmin = () => {
                     </div>
                     <div className="mb-3">
                       <label htmlFor="apellidos" className="form-label">Apellidos</label>
-                      <input type="text" className="form-control" id="apellidos" placeholder="Ingrese Apellidos" value={formData.apellidos} onChange={handleInputChange} onKeyPress={handleKeyPress}/>
+                      <input type="text" className="form-control" id="apellidos" placeholder="Ingrese Apellidos" value={formData.apellidos} onChange={handleInputChange} onKeyPress={handleKeyPress} />
                     </div>
                     <div className="mb-3">
                       <label htmlFor="correo_electronico" className="form-label">Correo Electrónico</label>
@@ -270,7 +294,7 @@ const UsuariosAdmin = () => {
                     <div className="mb-3">
                       <label htmlFor="genero" className="form-label">Género</label>
                       <select className="form-select" id="genero" value={formData.genero} onChange={handleInputChange} required>
-                        <option value="" disabled selected>Selecciona una opción</option>
+                        <option value="" disabled>Selecciona una opción</option>
                         <option value="femenino">Femenino</option>
                         <option value="masculino">Masculino</option>
                         <option value="otro">Otro</option>
@@ -282,13 +306,12 @@ const UsuariosAdmin = () => {
                     </div>
                     <div className="mb-3">
                       <label htmlFor="contrasena" className="form-label">Contraseña</label>
-                      <input type="Password" className="form-control" id="contrasena" placeholder="Ingrese Contraseña" value={formData.contrasena} onChange={handleInputChange} />
+                      <input type="password" className="form-control" id="contrasena" placeholder="Ingrese Contraseña" value={formData.contrasena} onChange={handleInputChange} />
                     </div>
-
                     <div className="mb-3">
                       <label htmlFor="rol" className="form-label">Rol</label>
                       <select className="form-select" id="rol" value={formData.rol} onChange={handleInputChange} required>
-                        <option value="" disabled selected>Selecciona una opción</option>
+                        <option value="" disabled>Selecciona una opción</option>
                         <option value="domiciliario">Domiciliario</option>
                         <option value="jefe de produccion">Jefe de Producción</option>
                         <option value="Gerente">Gerente</option>
@@ -297,7 +320,7 @@ const UsuariosAdmin = () => {
                   </form>
                 </div>
                 <div className="modal-footer">
-                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={resetForm}>Cerrar</button>
+                  <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={resetForm}>Cerrar</button>
                   <button type="button" className="btn btn-success" onClick={handleSaveUser}>
                     {isEditing ? 'Guardar Cambios' : 'Guardar'}
                   </button>
@@ -305,26 +328,17 @@ const UsuariosAdmin = () => {
               </div>
             </div>
           </div>
-          <div className="mb-3 d-flex align-items-center">
-            <FontAwesomeIcon icon={faSearch} className="me-2" style={{ fontSize: '20px' }} />
-            <input
-              type="text"
-              id="searchInput"
-              className="form-control"
-              placeholder="Buscar por ID"
-              value={searchTerm}
-              onChange={handleSearchChange}
-            />
-          </div>
-          <div className="mb-3">
-            <label htmlFor="userTypeFilter" className="form-label">Filtrar por tipo de usuario:</label>
-            <select id="userTypeFilter" className="form-select" value={userTypeFilter} onChange={handleUserTypeFilterChange}>
-              <option value="todos">Todos</option>
-              <option value="Gerente">Gerente</option>
-              <option value="Transportador">Transportador</option>
-              <option value="Cliente">Cliente</option>
-            </select>
-          </div>
+          {showFilters && (
+            <div className="mb-3">
+              <label htmlFor="userTypeFilter" className="form-label">Filtrar por tipo de usuario:</label>
+              <select id="userTypeFilter" className="form-select" value={userTypeFilter} onChange={handleUserTypeFilterChange}>
+                <option value="todos">Todos</option>
+                <option value="Gerente">Gerente</option>
+                <option value="Transportador">Transportador</option>
+                <option value="Cliente">Cliente</option>
+              </select>
+            </div>
+          )}
           {/* Tabla de usuarios */}
           <table className="table table-striped mt-4">
             <thead>
